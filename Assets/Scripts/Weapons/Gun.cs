@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Gun : Weapon
 {
@@ -64,6 +65,8 @@ public class Gun : Weapon
         bulletType = bullet.GetComponent<Bullet>();
         fireDelay = 1 / fireRate;
         currentMagSize = magSize;
+        Transform findConstraint = GameObject.FindGameObjectsWithTag("RotationConstraint")[0].transform;
+        ammoCount.GetComponent<RotationConstraint>().SetSource(0, new ConstraintSource { sourceTransform = findConstraint , weight = 1 }); // Set source for rotation constraint at runtime so the text doesn't rotate with the object
         UpdateAmmoText();
     }
     private void Update()
